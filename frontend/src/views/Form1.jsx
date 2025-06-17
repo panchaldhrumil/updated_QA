@@ -4,6 +4,7 @@ import Form from './Form';
 const Form1 = ({ onSubmit1 , compareData }) => {
   const [selectedOption, setSelectedOption] = useState('pass');
   const [file, setFile] = useState(null);
+    const [section, setSection] = useState('tube'); // State for dropdown selection
 
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
@@ -58,6 +59,10 @@ const Form1 = ({ onSubmit1 , compareData }) => {
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+  };
+
+   const handleSectionChange = (event) => {
+    setSection(event.target.value);
   };
 
     const handleSubmit2 = async (e) => {
@@ -166,7 +171,7 @@ const Form1 = ({ onSubmit1 , compareData }) => {
   }
 
     try {
-      const response = await fetch('http://localhost:3000/api/submitAll', {
+      const response = await fetch('http://192.168.1.100:3000/api/submitAll', {
         method: 'POST',
         body: formData,
       });
@@ -204,18 +209,27 @@ const Form1 = ({ onSubmit1 , compareData }) => {
         method='POST' encType='multipart/form-data'>
         <div>
           <h1>PHYSICAL-LOT</h1>
+
           <div
             className="container"
             style={{
               display: 'flex',
               backgroundColor: '#f4f6f8',
-              margin: '20px 0px',
+              margin: '10px 0px',
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center'
             }}
           >
-            <div
+                      <div style={{ margin: '20px 0', textAlign: 'center' }}>
+            <label>Select Section: </label>
+            <select value={section} onChange={handleSectionChange} style={{ margin: '5px', padding: '5px' }}>
+              <option value="tube">Tube</option>
+              <option value="tape">Tape/Reel</option>
+            </select>
+          </div>
+     {section === 'tube' && (
+               <div
               className="container1"
               style={{
                 margin: '5px',
@@ -273,8 +287,9 @@ const Form1 = ({ onSubmit1 , compareData }) => {
                 ))}
               </div>
               <button type='button' onClick={addTube}>ADD</button>
-            </div>
+            </div> ) }
 
+       {section === 'tape' && (
             <div
               className="container2"
               style={{
@@ -338,6 +353,7 @@ const Form1 = ({ onSubmit1 , compareData }) => {
               </div>
               <button type='button' onClick={addTape}>ADD</button>
             </div>
+       )}
 
           </div>
         </div>

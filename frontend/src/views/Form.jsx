@@ -47,26 +47,35 @@ const Form = () => {
         BoxLabelDateCode: boxLabelData.DateCode,
     };
 
-    const handleCompare = async (e) => {
-        const mismatches = [];
-        // Iterate over keys except 'DateCode'
-        Object.keys(lotTravellerData).forEach(key => {
-            if (key === 'DateCode') return; // Skip date field
+const handleCompare = async (e) => {
+  e.preventDefault(); // Prevent default behavior if attached to a form or button
+  const mismatches = [];
 
-            // Compare trimmed string values to avoid whitespace mismatches
-            if (String(lotTravellerData[key]).trim() !== String(boxLabelData[key]).trim()) {
-                mismatches.push(key);
+  // Iterate over keys except 'DateCode'
+  Object.keys(lotTravellerData).forEach((key) => {
+    if (key === 'DateCode') return; // Skip date field
 
-            }
-        });
+    const lotValue = String(lotTravellerData[key]).trim();
+    const boxValue = String(boxLabelData[key]).trim();
 
-        if (mismatches.length > 0) {
-            alert(`Mismatch found in: ${mismatches.join(', ')}`);
-            return;
-        }
-        else { setshowElement(true); }
+    // Check for empty values
+    if (lotValue === '' || boxValue === '') {
+      mismatches.push(key);
     }
+    // Check for mismatches
+    else if (lotValue !== boxValue) {
+      mismatches.push(key);
+    }
+  });
 
+  if (mismatches.length > 0) {
+    alert(`Mismatch or empty field found in: ${mismatches.join(', ')}`);
+    return;
+  }
+
+  // If no mismatches or empty fields, proceed
+  setshowElement(true);
+};
     // const handleSubmit1 = async (e) => {
     //     e.preventDefault();
 
@@ -195,13 +204,13 @@ const Form = () => {
                         <form style={formGroupStyle}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>ASSEMBLY LOT NUMBER : </label>
-                                <input type="number" name='AssemblyLotNumber' value={lotTravellerData.AssemblyLotNumber}
+                                <input required type="text" name='AssemblyLotNumber' value={lotTravellerData.AssemblyLotNumber}
                                     onChange={handleLotTravellerChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>WAFER LOT NUMBER :</label>
-                                <input type="number" name='WaferLotNumber' value={lotTravellerData.WaferLotNumber}
+                                <input required type="text" name='WaferLotNumber' value={lotTravellerData.WaferLotNumber}
                                     onChange={handleLotTravellerChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
@@ -209,20 +218,20 @@ const Form = () => {
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>QUANTITY : </label>
-                                <input type="number" name='Quantity' value={lotTravellerData.Quantity}
+                                <input required type="text" name='Quantity' value={lotTravellerData.Quantity}
                                     onChange={handleLotTravellerChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>MARKING : </label>
-                                <input type="text" name='Marking' value={lotTravellerData.Marking}
+                                <input required type="text" name='Marking' value={lotTravellerData.Marking}
                                     onChange={handleLotTravellerChange}
                                     style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                                <label style={{ ...labelStyle, minWidth: '160px' }}>DATE CODE : </label>
-                                <input type="date" name='DateCode' value={lotTravellerData.DateCode}
+                                <label style={{ ...labelStyle, minWidth: '160px' }}>DATE : </label>
+                                <input required type="date" name='DateCode' value={lotTravellerData.DateCode}
                                     onChange={handleLotTravellerChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
                         </form>
@@ -236,27 +245,27 @@ const Form = () => {
                         <form style={formGroupStyle}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>ASSEMBLY LOT NUMBER : </label>
-                                <input type="number" name='AssemblyLotNumber' value={boxLabelData.AssemblyLotNumber} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
+                                <input required type="text" name='AssemblyLotNumber' value={boxLabelData.AssemblyLotNumber} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>WAFER LOT NUMBER : </label>
-                                <input type="number" name='WaferLotNumber' value={boxLabelData.WaferLotNumber} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
+                                <input required type="text" name='WaferLotNumber' value={boxLabelData.WaferLotNumber} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>QUANTITY : </label>
-                                <input type="number" name='Quantity' value={boxLabelData.Quantity} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
+                                <input required type="text" name='Quantity' value={boxLabelData.Quantity} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
                                 <label style={{ ...labelStyle, minWidth: '160px' }}>MARKING : </label>
-                                <input type="text" name='Marking' value={boxLabelData.Marking} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
+                                <input required type="text" name='Marking' value={boxLabelData.Marking} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                                <label style={{ ...labelStyle, minWidth: '160px' }}>DATE CODE : </label>
-                                <input type="date" name='DateCode' value={boxLabelData.DateCode} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
+                                <label style={{ ...labelStyle, minWidth: '160px' }}>DATE : </label>
+                                <input required type="date" name='DateCode' value={boxLabelData.DateCode} onChange={handleBoxLabelChange} style={{ ...inputStyle, flex: 1 }} />
                             </div>
                         </form>
                     </div>

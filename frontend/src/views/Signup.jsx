@@ -16,7 +16,7 @@ const handleSubmit = async (e) => {
  
 
   try {
-    const response = await fetch('http://localhost:3000/api/register', {
+    const response = await fetch('http://192.168.1.100:3000/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ const handleSubmit = async (e) => {
       const data = await response.text(); // or .json() if your backend sends JSON
       alert("Registration successful: " + data);
       // Redirect to login or home page if needed
-       navigate('/form'); // 2. Redirect to Form.jsx route
+       navigate('/'); // 2. Redirect to Form.jsx route
     } else {
       const error = await response.text();
       alert("Registration failed: " + error);
@@ -48,43 +48,108 @@ const handleSubmit = async (e) => {
 
           <h1>QA MANAGEMENT</h1>
 
-          <form style={{ display: 'flex', gap: '50px', flexDirection: 'column' }} onSubmit={handleSubmit}>
+          <form style={{ display: 'flex', gap: '30px', flexDirection: 'column' }} onSubmit={handleSubmit}>
 
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <label  style={{ fontSize: '20px', fontWeight: 'bold' }}>Name :</label>
-              <input
-                type="text"
-                name="name"
-                placeholder='Enter Your Name'
+<div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '20px' }}>
+  <label style={{ fontSize: '20px', fontWeight: 'bold', width: '100px' }}>Name:</label>
+  <input
+    type="text"
+    name="name"
+    placeholder="Enter Your Name"
+    style={{
+      padding: '8px',
+      fontSize: '16px',
+      borderRadius: '8px',
+      border: '1px solid #ccc',
+      width: '250px',
+      outline: 'none',
+      transition: 'border-color 0.3s',
+    }}
+    onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+    onBlur={(e) => e.target.style.borderColor = '#ccc'}
+  />
+</div>
 
-              />
-            </div>
 
-            <div style={{ display: 'flex', gap: '20px' }}>
-              <label  style={{ fontSize: '20px', fontWeight: 'bold' }} >Email :</label>
-              <input
-                type="email"
-                name="email"
-                placeholder='Enter Your E-mail'
-              />
-            </div>
+          <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '20px' }}>
+  <label style={{ fontSize: '20px', fontWeight: 'bold', width: '100px' }}>Email:</label>
+  <input
+    type="email"
+    name="email"
+    placeholder="Enter Your E-mail"
+    style={{
+      padding: '8px',
+      fontSize: '16px',
+      borderRadius: '8px',
+      border: '1px solid #ccc',
+      width: '250px',
+      outline: 'none',
+      transition: 'border-color 0.3s',
+    }}
+    onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+    onBlur={(e) => e.target.style.borderColor = '#ccc'}
+  />
+</div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px' }}>
-              <label  style={{ fontSize: '20px', fontWeight: 'bold' }} >PassWord :</label>
-              <input
-                type="password"
-                name="password"
-                placeholder='Enter The Password'
+<div style={{ display: 'flex', justifyContent: 'space-between', gap: '20px', alignItems: 'center', marginBottom: '20px' }}>
+  <label style={{ fontSize: '20px', fontWeight: 'bold', width: '100px' }}>Password:</label>
+  <input
+    type="password"
+    name="password"
+    placeholder="Enter The Password"
+    style={{
+      padding: '8px',
+      fontSize: '16px',
+      borderRadius: '8px',
+      border: '1px solid #ccc',
+      width: '250px',
+      outline: 'none',
+      transition: 'border-color 0.3s',
+    }}
+    onFocus={(e) => e.target.style.borderColor = '#007BFF'}
+    onBlur={(e) => e.target.style.borderColor = '#ccc'}
+  />
+</div>
 
-              />
-            </div>
 
-            <div style={{display:'flex', gap:'5px'}} >
-                  <div>if you already have an accouunt</div>
-             <div  > <Link to="/"  className="hover p-3 text-white" style={{ color: '#33445f', textDecoration:'underline' ,fontWeight:'bold'}} > Login </Link> </div> 
-            </div>
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '20px', fontSize: '16px' }}>
+  <div>If you already have an account</div>
+  <div>
+    <Link
+      to="/"
+      style={{
+        color: '#007BFF',
+        textDecoration: 'underline',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+      }}
+      onMouseEnter={(e) => e.target.style.color = '#0056b3'}
+      onMouseLeave={(e) => e.target.style.color = '#007BFF'}
+    >
+      Login
+    </Link>
+  </div>
+</div>
 
-            <input type="submit" className='hover' style={{ backgroundColor: 'black', width: 'auto', padding: '10px 0px', fontSize: '20px', color: 'white' }} />
+
+         
+          <input
+            type="submit"
+            value="Submit"
+            style={{
+              backgroundColor: '#000',
+              padding: '10px 20px',
+              fontSize: '18px',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              marginTop: '20px',
+              transition: 'background-color 0.3s',
+            }}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#333'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = '#000'}
+          />
             {/* <button type="submit"  >Submit</button> */}
 
           </form>

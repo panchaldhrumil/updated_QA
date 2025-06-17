@@ -71,6 +71,10 @@ router.post("/reset-password", async (req, res) => {
  // Login
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+    // Check for empty fields
+  if ( !email || !password) {
+    return res.status(400).send("No fields should be empty");
+  }
 
   try {
     const pool = await poolPromise;
@@ -98,6 +102,10 @@ router.post("/login", async (req, res) => {
 // Register
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
+    // Check for empty fields
+  if (!name || !email || !password) {
+    return res.status(400).send("No fields should be empty");
+  }
   try {
     const pool = await poolPromise;
     const checkUser = await pool.request()
